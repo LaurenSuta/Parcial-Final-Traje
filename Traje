@@ -1,0 +1,27 @@
+public class Traje extends Componente {
+
+    private ArrayList<Componente> piezas;
+    private String nombre;
+
+    public Traje(<any> piezas, String nombre, int id, String nombre, String talla, String color, boolean esComunitario, double precio) {
+        super(id, nombre, talla, color, esComunitario, precio);
+        this.piezas = piezas;
+        this.nombre = nombre;
+    }
+    public <any> getPiezas() {
+        return piezas;
+    }
+    public String getNombre() {
+        return nombre;
+    }
+    public void setPiezas(<any> piezas) {
+        this.piezas = piezas;
+    }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    @Override
+    public String toString() {
+        return "Traje{" + "piezas=" + piezas + ", nombre=" + nombre + '}';
+    }
+}
