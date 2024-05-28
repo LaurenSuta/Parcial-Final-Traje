@@ -183,4 +183,40 @@ private void aplicarDescuento() {
     for (Traje traje : trajesEnAlmacen) {
         traje.aplicarDescuento();
     }
+
+public void crearEnvio() {
+    Scanner scanner = new Scanner(System.in);
+    ArrayList<Traje> envio = new ArrayList<>();
+
+    boolean agregarMasTrajes = true;
+    while (agregarMasTrajes) {
+        System.out.println("Trajes disponibles:");
+        for (Traje traje : trajesEnAlmacen) {
+            System.out.println(traje.getNombre());
+        }
+        System.out.println("Seleccione un traje por su nombre para añadir al envío:");
+        String nombreTraje = scanner.nextLine();
+
+        // Buscar el traje por su nombre en el almacén
+        Traje trajeSeleccionado = null;
+        for (Traje traje : trajesEnAlmacen) {
+            if (traje.getNombre().equals(nombreTraje)) {
+                trajeSeleccionado = traje;
+                break;
+            }
+        }
+        if (trajeSeleccionado != null) {
+            envio.add(trajeSeleccionado);
+            trajesEnAlmacen.remove(trajeSeleccionado);
+            System.out.println("Traje añadido al envío correctamente.");
+        } else {
+            System.out.println("El traje seleccionado no existe en el almacén.");
+        }
+        // Preguntar al usuario si quiere agregar más trajes al envío
+        System.out.println("¿Desea agregar otro traje al envío? (si/no):");
+        String respuesta = scanner.nextLine().toLowerCase();
+        agregarMasTrajes = respuesta.equals("s");
+    }
+    System.out.println("Envío creado exitosamente.");
+}
 }
