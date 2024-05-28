@@ -1,0 +1,68 @@
+public class Componente {
+ 
+private int id;
+private String nombre;
+private String talla;
+private String color;
+private boolean esComunitario;
+private double precio;   
+    
+public Componente(int id, String nombre, String talla, String color, boolean esComunitario, double precio) {
+        this.id = id;
+        this.nombre = nombre;
+        this.talla = talla;
+        this.color = color;
+        this.esComunitario = esComunitario;
+        this.precio = precio;
+    }
+    public int getId() {
+        return id;
+    }
+    public String getNombre() {
+        return nombre;
+    }
+    public String getTalla() {
+        return talla;
+    }
+    public String getColor() {
+        return color;
+    }
+    public boolean isEsComunitario() {
+        return esComunitario;
+    }
+    public double getPrecio() {
+        return precio;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    public void setTalla(String talla) {
+        this.talla = talla;
+    }
+    public void setColor(String color) {
+        this.color = color;
+    }
+    public void setEsComunitario(boolean esComunitario) {
+        this.esComunitario = esComunitario;
+    }
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+    @Override
+    public String toString() {
+        return "Componente{" + "id=" + id + ", nombre=" + nombre + ", talla=" + talla + ", color=" + color + ", esComunitario=" + esComunitario + ", precio=" + precio + '}';
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
+        final Componente other = (Componente) obj;
+        if (this.id != other.id) return false; }}
+    
+    public int compareTo(Componente obj) {
+        return Integer.compare(this.id, obj.id);
+}
