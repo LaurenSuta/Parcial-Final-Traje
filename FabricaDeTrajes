@@ -1,0 +1,58 @@
+public class FabricaDeTrajes implements IFabricaDeTrajes {
+
+    private ArrayList<Componente> componentesEnAlmacen;
+    private TreeSet<Traje> trajesEnAlmacen;
+    private boolean sonRebajas = false;
+
+    public FabricaDeTrajes(<any>  componentesEnAlmacen, <any>  trajesEnAlmacen) {
+        this.componentesEnAlmacen = componentesEnAlmacen;
+        this.trajesEnAlmacen = trajesEnAlmacen;
+    }
+    public void escribirMenu() {
+        System.out.println("MENU DE LA FABRICA DE TRAJES");
+        System.out.println("1.- Añadir Componente a almacén");
+        System.out.println("2.- Listar Componentes del almacén");
+        System.out.println("3.- Crear traje y añadir a almacén");
+        System.out.println("4.- Listar trajes del almacén");
+        System.out.println("7.- Activar/Desactivar las rebajas");
+        System.out.println("8.- Crear envío");
+        System.out.println("9.- Crea componentes de prueba");
+        System.out.println("0.- Salir");
+        
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        FabricaDeTrajes fabrica = new FabricaDeTrajes();
+
+        int opcion;
+        do {
+            fabrica.escribirMenu();
+            System.out.print("Seleccione una opción: ");
+            opcion = scanner.nextInt();
+
+            switch (opcion) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    break;
+                case 9:
+                    System.out.println("Datos de prueba creados.");
+                    break;
+                case 0:
+                    System.out.println("Saliendo del programa...");
+                    break;
+                default:
+                    System.out.println("Opción inválida. Inténtelo de nuevo.");
+                    break;
+            }
+        } while (opcion != 0);
+        scanner.close();
+    }
+}
