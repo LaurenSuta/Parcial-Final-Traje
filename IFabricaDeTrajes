@@ -31,3 +31,156 @@ public interface IFabricaDeTrajes {
         }
     }
 }
+public void añadirComponenteAAlmacen() {
+    Scanner scanner = new Scanner(System.in);
+
+    System.out.println("¿Qué tipo de componente desea añadir?");
+    String tipoComponente = scanner.nextLine();
+
+    System.out.println("Ingrese el ID del componente:");
+    String idComponente = scanner.nextLine();
+
+    System.out.println("Ingrese el precio del componente:");
+    double precioComponente = scanner.nextDouble();
+    
+    // Ajustar el precio según las reglas
+    if (tipoComponente.equals("chaqueta")) {
+        System.out.println("Ingrese el número de botones:");
+        int numBotones = scanner.nextInt();
+        precioComponente += numBotones * 2;
+    } else if (tipoComponente.equals("pantalon") || tipoComponente.equals("falda")) {
+        System.out.println("¿El componente tiene cremallera? (si/no):");
+        char tieneCremallera = scanner.next().charAt(0);
+        if (tieneCremallera == 's') {
+            precioComponente += 1;
+        }
+    }
+    // Crear el componente con el precio ajustado
+    Componente nuevoComponente = new Componente(idComponente, tipoComponente, precioComponente);
+    // Agregar el componente al almacén
+    componentesEnAlmacen.add(nuevoComponente);
+    System.out.println("Componente añadido correctamente al almacén.");
+}
+public void listarComponentes() {
+    if (componentesEnAlmacen.isEmpty()) {
+        System.out.println("No hay componentes en el almacén.");
+    } else {
+        System.out.println("Componentes en el almacén:");
+        for (Componente componente : componentesEnAlmacen) {
+            System.out.println("ID: " + componente.getId() + ", Tipo: " + componente.getTipo() + ", Precio: " + componente.getPrecio());
+  }}}
+public void añadirTrajeAAlmacen() {
+    Scanner scanner = new Scanner(System.in);
+
+    System.out.println("Blusas disponibles:");
+    for (Componente componente : componentesEnAlmacen) {
+        if (componente.getTipo().equals("blusa")) {
+            System.out.println("ID: " + componente.getId());
+        }
+    }
+    System.out.println("Seleccione el ID de la blusa que desea agregar al traje:");
+    String idBlusa = scanner.nextLine();
+
+    System.out.println("Faldas y pantalones disponibles:");
+    for (Componente componente : componentesEnAlmacen) {
+        if (componente.getTipo().equals("falda") || componente.getTipo().equals("pantalon")) {
+            System.out.println("ID: " + componente.getId() + ", Tipo: " + componente.getTipo());
+        }
+    }
+    System.out.println("Seleccione el ID de la falda o pantalón que desea agregar al traje:");
+    String idFaldaOPantalon = scanner.nextLine();
+
+    System.out.println("Chaquetas disponibles:");
+    for (Componente componente : componentesEnAlmacen) {
+        if (componente.getTipo().equals("chaqueta")) {
+            System.out.println("ID: " + componente.getId());
+        }
+    }
+    System.out.println("Seleccione el ID de la chaqueta que desea agregar al traje:");
+    String idChaqueta = scanner.nextLine();
+
+    Traje traje = new Traje(idBlusa, idFaldaOPantalon, idChaqueta);
+
+    // Agregar el traje al almacén de trajes
+    trajesEnAlmacen.add(traje);
+    System.out.println("Traje añadido correctamente al almacén.");
+}
+public void añadirTrajeAAlmacen() throws ColoresException {
+    Scanner scanner = new Scanner(System.in);
+
+    // Obtener el color del componente seleccionado
+    String colorSeleccionado = obtenerColorComponente(idFaldaOPantalon);
+
+    // Verificar si el color del componente seleccionado cumple con las reglas
+    for (Componente componente : componentesEnAlmacen) {
+        if (componente.getId().equals(idFaldaOPantalon) && !sonColoresAmigos(colorSeleccionado, obtenerColorComponente(componente.getId()))) {
+            throw new ColoresException("El traje no puede contener piezas de colores no parecidos.");
+        }
+    }
+// Método para obtener el color de un componente dado su ID
+private String obtenerColorComponente(String idComponente) {
+    return "azul"; // Esto es solo un ejemplo
+}
+// Método para verificar si dos colores son parecidos
+private boolean sonColoresAmigos(String color1, String color2) {
+    return color1.charAt(0) == color2.charAt(0);
+}
+String tallaSeleccionada = obtenerTallaComponente(idFaldaOPantalon);
+
+    // Verificar que todos los componentes tengan la misma talla
+    for (Componente componente : componentesEnAlmacen) {
+        if (!componente.getTipo().equals("falda") && !componente.getTalla().equals(tallaSeleccionada)) {
+            throw new TallaException("Todos los componentes deben tener la misma talla.");
+        }
+    }
+    // Verificar si el traje ya existe en el almacén
+    for (Traje traje : trajesEnAlmacen) {
+        if (traje.getNombre().equals(idBlusa + idFaldaOPantalon + idChaqueta)) {
+            throw new TrajeYaExisteException("El traje ya existe en el almacén.");
+        }
+    }
+Traje traje = new Traje(idBlusa, idFaldaOPantalon, idChaqueta);
+    trajesEnAlmacen.add(traje); // Agregar el traje al conjunto trajesEnAlmacen
+
+    // Eliminar los componentes utilizados para el traje del almacén
+    eliminarComponente(idBlusa);
+    eliminarComponente(idFaldaOPantalon);
+    eliminarComponente(idChaqueta);
+
+    System.out.println("Traje añadido correctamente al almacén.");
+}
+public void listarTrajes() {
+    if (trajesEnAlmacen.isEmpty()) {
+        System.out.println("No hay trajes en el almacén.");
+
+public void activarDesactivarRebajas() {
+    if (sonRebajas) {
+        // Desactivar las rebajas y restaurar los precios originales
+        restaurarPrecios();
+        sonRebajas = false;
+        System.out.println("Las rebajas han sido desactivadas.");
+    } else {
+        // Activar las rebajas y aplicar el descuento
+        aplicarDescuento();
+        sonRebajas = true;
+        System.out.println("Las rebajas han sido activadas.");
+    }
+}
+// Método para restaurar los precios originales
+private void restaurarPrecios() {
+    for (Componente componente : componentesEnAlmacen) {
+        componente.restaurarPrecioOriginal();
+    }
+    for (Traje traje : trajesEnAlmacen) {
+        traje.restaurarPrecioOriginal();
+    }
+}
+// Método para aplicar un descuento a los precios de todos los componentes y trajes
+private void aplicarDescuento() {
+    for (Componente componente : componentesEnAlmacen) {
+        componente.aplicarDescuento();
+    }
+    for (Traje traje : trajesEnAlmacen) {
+        traje.aplicarDescuento();
+    }
+}
